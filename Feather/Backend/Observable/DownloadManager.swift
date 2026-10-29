@@ -83,11 +83,15 @@ class DownloadManager: NSObject, ObservableObject {
 		}
 		
 		let download = Download(id: id, url: url, sourceProvenance: sourceProvenance)
-		
-		let task = _session.downloadTask(with: url)
-		download.task = task
-		task.resume()
-		
+
+		if GitHubAuth.shouldAuthorize(url) {
+			_startAuthorizedTask(for: download)
+		} else {
+			let task = _session.downloadTask(with: url)
+			download.task = task
+			task.resume()
+		}
+
 		downloads.append(download)
 		
 		LiveTask.start(
@@ -127,8 +131,9 @@ class DownloadManager: NSObject, ObservableObject {
 			#if !targetEnvironment(macCatalyst)
 			_updateBackgroundAudioState()
 			#endif
-		} else if let url = download.task?.originalRequest?.url {
-			let task = _session.downloadTask(with: url)
+		} else if let request = download.task?.originalRequest {
+			// the whole request, so GitHub auth headers survive a restart
+			let task = _session.downloadTask(with: request)
 			download.task = task
 			task.resume()
 			
@@ -261,5 +266,40 @@ extension DownloadManager: URLSessionDownloadDelegate {
 				message: "\(download.sourceProvenance?.sourceAppName ?? download.fileName)\n\n\(error.localizedDescription)"
 			)
 		}
+	}
+}
+
+// MARK: - GitHub (private repositories)
+extension DownloadManager {
+	fileprivate func _startAuthorizedTask(for download: Download) {
+		Task {
+			do {
+				let request = try await GitHubAuth.request(for: download.url)
+				await MainActor.run {
+					// cancelled while the release was being looked up
+					guard self.getDownload(by: download.id) != nil else { return }
+					let task = self._session.downloadTask(with: request)
+					download.task = task
+					task.resume()
+				}
+			} catch {
+				_fail(download, with: error)
+			}
+		}
+	}
+	
+	/// GitHub hands asset downloads off to signed storage URLs, which reject a second set of credentials.
+	func urlSession(
+		_ session: URLSession,
+		task: URLSessionTask,
+		willPerformHTTPRedirection response: HTTPURLResponse,
+		newRequest request: URLRequest,
+		completionHandler: @escaping (URLRequest?) -> Void
+	) {
+		var request = request
+		if request.url?.host != task.originalRequest?.url?.host {
+			request.setValue(nil, forHTTPHeaderField: "Authorization")
+		}
+		completionHandler(request)
 	}
 }

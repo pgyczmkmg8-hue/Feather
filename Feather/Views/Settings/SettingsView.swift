@@ -80,6 +80,9 @@ struct SettingsView: View {
 					NavigationLink(destination: RemoteView()) {
 						Label(.localized("Remote CLI"), systemImage: "terminal")
 					}
+					NavigationLink(destination: GitHubTokenView()) {
+						Label { Text(verbatim: "GitHub 토큰") } icon: { Image(systemName: "key") }
+					}
 				} footer: {
 					Text(.localized("Configure the apps way of installing, its zip compression levels, and custom modifications to apps."))
 				}
