@@ -51,8 +51,8 @@ struct AppIconView: View {
 		"MACHU": [
 			AltIcon(displayName: "MACHU", author: "MACHU", key: "MACHU"),
 		],
-		"ALT2": [
-			AltIcon(displayName: "ALT2", author: "ALT2", key: "ALT2"),
+		"Walkure": [
+			AltIcon(displayName: "Walkure", author: "Walkure", key: "Walkure"),
 		]
 	]
 	

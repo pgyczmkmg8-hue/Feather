@@ -104,11 +104,11 @@
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>
-			<key>ALT2</key>
+			<key>Walkure</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>ALT2</string>
+					<string>Walkure</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<false/>
@@ -191,11 +191,11 @@
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>
-			<key>ALT2</key>
+			<key>Walkure</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>ALT2</string>
+					<string>Walkure</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<false/>
