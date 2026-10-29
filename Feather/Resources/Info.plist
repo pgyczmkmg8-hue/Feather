@@ -95,6 +95,15 @@
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>
+			<key>MACHU</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>MACHU</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
 		</dict>
 		<key>CFBundlePrimaryIcon</key>
 		<dict>
@@ -160,6 +169,15 @@
 				<key>CFBundleIconFiles</key>
 				<array>
 					<string>Wing</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>MACHU</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>MACHU</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<false/>

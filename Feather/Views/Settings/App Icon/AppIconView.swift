@@ -47,6 +47,9 @@ struct AppIconView: View {
 		],
 		"Wingio": [
 			AltIcon(displayName: "Feather", author: "Wingio", key: "Wing"),
+		],
+		"MACHU": [
+			AltIcon(displayName: "MACHU", author: "MACHU", key: "MACHU"),
 		]
 	]
 	
