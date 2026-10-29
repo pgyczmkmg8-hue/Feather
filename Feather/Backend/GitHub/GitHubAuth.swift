@@ -135,6 +135,18 @@ enum GitHubAuth {
 		return download
 	}
 
+	/// Fetches and decodes JSON (a source, say) from a private repository.
+	static func decode<T: Decodable>(_ type: T.Type, from url: URL) async throws -> T {
+		var request = try await request(for: url)
+		request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+
+		let (data, response) = try await URLSession.shared.data(for: request)
+		if let status = (response as? HTTPURLResponse)?.statusCode, !(200..<300).contains(status) {
+			throw Error.http(status)
+		}
+		return try JSONDecoder().decode(type, from: data)
+	}
+
 	private static func _apiRequest(_ path: String, token: String) -> URLRequest {
 		var request = URLRequest(url: URL(string: "https://api.github.com/\(path)")!)
 		request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")

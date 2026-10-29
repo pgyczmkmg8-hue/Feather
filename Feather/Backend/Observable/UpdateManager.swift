@@ -46,7 +46,8 @@ struct FeatherUpdate: Equatable {
 	let size: Int64?
 	let sourceProvenance: SourceAppProvenance
 
-	static let repositoryURL = URL(string: "https://raw.githubusercontent.com/seomin0610/Feather/main/app-repo.json")!
+	// private fork feed, read with the saved GitHub token (tools/release-custom.sh publishes it)
+	static let repositoryURL = URL(string: "https://raw.githubusercontent.com/pgyczmkmg8-hue/Feather/main/custom-repo.json")!
 	static let downloadID = "\(AppUpdate.downloadIDPrefix)Feather"
 }
 
@@ -336,7 +337,11 @@ final class UpdateManager: ObservableObject {
 	}
 	
 	private func _fetchRepository(from url: URL) async -> ASRepository? {
-		await withCheckedContinuation { continuation in
+		if GitHubAuth.shouldAuthorize(url) {
+			return try? await GitHubAuth.decode(ASRepository.self, from: url)
+		}
+
+		return await withCheckedContinuation { continuation in
 			_dataService.fetch(from: url) { (result: RepositoryDataHandler) in
 				switch result {
 				case .success(let repository):
