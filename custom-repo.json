@@ -14,6 +14,13 @@
       "tintColor": "848ef9",
       "versions": [
         {
+          "version": "2.9.4.4",
+          "date": "2026-10-29T14:43:36Z",
+          "size": 18393718,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.4/Feather.ipa",
+          "localizedDescription": "- feat: add ALT2 alternate app icon"
+        },
+        {
           "version": "2.9.4.3",
           "date": "2026-10-29T07:54:31Z",
           "size": 18282815,
@@ -42,10 +49,10 @@
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Sign.png?raw=true",
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Store.png?raw=true"
       ],
-      "version": "2.9.4.3",
-      "versionDate": "2026-10-29T07:54:31Z",
-      "size": 18282815,
-      "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.3/Feather.ipa"
+      "version": "2.9.4.4",
+      "versionDate": "2026-10-29T14:43:36Z",
+      "size": 18393718,
+      "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.4/Feather.ipa"
     }
   ],
   "news": []
