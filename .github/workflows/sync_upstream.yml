@@ -1,0 +1,72 @@
+name: Sync Upstream
+
+# Merges seomin0610/Feather main into this repo's main once a day.
+# If the merge conflicts with local customizations (or upstream changed
+# workflow files, which GITHUB_TOKEN may not push), an issue is opened
+# instead and the merge must be done locally with tools/sync-upstream.sh.
+
+on:
+  schedule:
+    - cron: "0 18 * * *" # 03:00 KST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: sync-upstream
+  cancel-in-progress: false
+
+env:
+  UPSTREAM_URL: https://github.com/seomin0610/Feather.git
+  UPSTREAM_BRANCH: main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Fetch upstream
+        id: fetch
+        run: |
+          git remote add upstream "$UPSTREAM_URL"
+          git fetch upstream "$UPSTREAM_BRANCH"
+          behind=$(git rev-list --count HEAD..upstream/$UPSTREAM_BRANCH)
+          echo "behind=$behind" >> "$GITHUB_OUTPUT"
+          echo "Upstream commits not yet merged: $behind"
+
+      - name: Merge and push
+        id: merge
+        if: steps.fetch.outputs.behind != '0'
+        continue-on-error: true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git merge --no-edit "upstream/$UPSTREAM_BRANCH"
+          git push origin HEAD:main
+
+      - name: Report failure
+        if: steps.merge.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Upstream sync needs manual merge"
+          body="Automatic merge of upstream \`$UPSTREAM_BRANCH\` failed (conflict, or upstream changed workflow files).
+
+          Run locally:
+          \`\`\`
+          tools/sync-upstream.sh
+          \`\`\`
+          Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          existing=$(gh issue list --state open --search "in:title \"$title\"" --json number -q '.[0].number')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --title "$title" --body "$body"
+          fi
+          exit 1
