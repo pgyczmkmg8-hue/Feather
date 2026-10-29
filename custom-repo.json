@@ -14,6 +14,13 @@
       "tintColor": "848ef9",
       "versions": [
         {
+          "version": "2.9.4.7",
+          "date": "2026-10-29T14:57:25Z",
+          "size": 29408120,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.7/Feather.ipa",
+          "localizedDescription": "- fix: keep GitHub token in app storage and point settings at the fork"
+        },
+        {
           "version": "2.9.4.6",
           "date": "2026-10-29T14:47:38Z",
           "size": 29407296,
@@ -63,10 +70,10 @@
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Sign.png?raw=true",
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Store.png?raw=true"
       ],
-      "version": "2.9.4.6",
-      "versionDate": "2026-10-29T14:47:38Z",
-      "size": 29407296,
-      "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.6/Feather.ipa"
+      "version": "2.9.4.7",
+      "versionDate": "2026-10-29T14:57:25Z",
+      "size": 29408120,
+      "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.7/Feather.ipa"
     }
   ],
   "news": []
