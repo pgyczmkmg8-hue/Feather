@@ -104,6 +104,15 @@
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>
+			<key>ALT2</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>ALT2</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
 		</dict>
 		<key>CFBundlePrimaryIcon</key>
 		<dict>
@@ -178,6 +187,15 @@
 				<key>CFBundleIconFiles</key>
 				<array>
 					<string>MACHU</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>ALT2</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>ALT2</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<false/>
