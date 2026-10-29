@@ -14,6 +14,13 @@
       "tintColor": "848ef9",
       "versions": [
         {
+          "version": "2.9.4.2",
+          "date": "2026-10-29T07:47:41Z",
+          "size": 18282813,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.2/Feather.ipa",
+          "localizedDescription": "- feat: add MACHU alternate app icon\n- chore: custom release 2.9.4.1"
+        },
+        {
           "version": "2.9.4.1",
           "date": "2026-10-29T07:33:24Z",
           "size": 18213437,
@@ -28,10 +35,10 @@
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Sign.png?raw=true",
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Store.png?raw=true"
       ],
-      "version": "2.9.4.1",
-      "versionDate": "2026-10-29T07:33:24Z",
-      "size": 18213437,
-      "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.1/Feather.ipa"
+      "version": "2.9.4.2",
+      "versionDate": "2026-10-29T07:47:41Z",
+      "size": 18282813,
+      "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.2/Feather.ipa"
     }
   ],
   "news": []
