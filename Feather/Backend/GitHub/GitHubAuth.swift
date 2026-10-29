@@ -7,24 +7,62 @@ import Foundation
 import Security
 
 // MARK: - Token
-/// Personal access token for downloading from private GitHub repositories, kept in the keychain.
+/// Personal access token for downloading from private GitHub repositories.
+/// Kept in the app container rather than the keychain, since keychain items stop being readable after an update signed by another certificate.
 enum GitHubToken {
-	private static let _service = "Feather.github"
-	private static let _account = "token"
+	private static let _legacyService = "Feather.github"
+	private static let _legacyAccount = "token"
 
-	private static var _query: [String: Any] {
-		[
-			kSecClass as String: kSecClassGenericPassword,
-			kSecAttrService as String: _service,
-			kSecAttrAccount as String: _account
-		]
+	private static var _fileURL: URL? {
+		guard let support = try? FileManager.default.url(
+			for: .applicationSupportDirectory,
+			in: .userDomainMask,
+			appropriateFor: nil,
+			create: true
+		) else {
+			return nil
+		}
+		let directory = support.appendingPathComponent("Feather", isDirectory: true)
+		try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+		return directory.appendingPathComponent("github-token")
 	}
 
 	static var value: String? {
-		var query = _query
-		query[kSecReturnData as String] = true
-		query[kSecMatchLimit as String] = kSecMatchLimitOne
+		if let url = _fileURL, let data = try? Data(contentsOf: url),
+		   let token = String(data: data, encoding: .utf8), !token.isEmpty {
+			return token
+		}
+		return _migrateLegacyKeychainToken()
+	}
 
+	@discardableResult
+	static func save(_ token: String) -> Bool {
+		guard let url = _fileURL else { return false }
+		do {
+			try Data(token.utf8).write(to: url, options: [.atomic, .completeFileProtectionUntilFirstUserAuthentication])
+			_deleteLegacyKeychainToken()
+			return true
+		} catch {
+			return false
+		}
+	}
+
+	static func delete() {
+		if let url = _fileURL {
+			try? FileManager.default.removeItem(at: url)
+		}
+		_deleteLegacyKeychainToken()
+	}
+
+	/// Tokens saved by earlier builds stay in the keychain, so move them over once.
+	private static func _migrateLegacyKeychainToken() -> String? {
+		let query: [String: Any] = [
+			kSecClass as String: kSecClassGenericPassword,
+			kSecAttrService as String: _legacyService,
+			kSecAttrAccount as String: _legacyAccount,
+			kSecReturnData as String: true,
+			kSecMatchLimit as String: kSecMatchLimitOne
+		]
 		var result: AnyObject?
 		guard
 			SecItemCopyMatching(query as CFDictionary, &result) == errSecSuccess,
@@ -34,20 +72,17 @@ enum GitHubToken {
 		else {
 			return nil
 		}
+		save(token)
 		return token
 	}
 
-	@discardableResult
-	static func save(_ token: String) -> Bool {
-		delete()
-		var query = _query
-		query[kSecValueData as String] = Data(token.utf8)
-		query[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
-		return SecItemAdd(query as CFDictionary, nil) == errSecSuccess
-	}
-
-	static func delete() {
-		SecItemDelete(_query as CFDictionary)
+	private static func _deleteLegacyKeychainToken() {
+		let query: [String: Any] = [
+			kSecClass as String: kSecClassGenericPassword,
+			kSecAttrService as String: _legacyService,
+			kSecAttrAccount as String: _legacyAccount
+		]
+		SecItemDelete(query as CFDictionary)
 	}
 }
 

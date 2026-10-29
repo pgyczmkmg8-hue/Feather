@@ -33,7 +33,7 @@ struct SettingsView: View {
 		}
 		return _certificates[_storedSelectedCert]
 	}
-	private let _githubUrl = "https://github.com/seomin0610/Feather"
+	private let _githubUrl = "https://github.com/pgyczmkmg8-hue/Feather"
     
 	// MARK: Body
 	var body: some View {
