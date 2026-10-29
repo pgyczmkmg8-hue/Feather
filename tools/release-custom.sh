@@ -47,7 +47,7 @@ ditto -c -k --sequesterRsrc --keepParent _build/Payload packages/Feather.ipa
 # release notes: our commits since the previous custom release (or upstream's last tag)
 PREVIOUS=$(git tag --list 'custom-*' --sort=-creatordate | head -1)
 [ -z "$PREVIOUS" ] && PREVIOUS=$(git describe --tags --abbrev=0 --match 'v*' 2>/dev/null || true)
-NOTES=$(git log --no-merges --format='- %s' ${PREVIOUS:+"$PREVIOUS"..}HEAD)
+NOTES=$(git log --no-merges --format='- %s' ${PREVIOUS:+"$PREVIOUS"..}HEAD | grep -v '^- chore: custom release ' || true)
 
 gh release create "$TAG" packages/Feather.ipa \
 	-R "$REPO" \
