@@ -1,0 +1,38 @@
+{
+  "name": "Feather (custom)",
+  "identifier": "feather.custom",
+  "iconURL": "https://github.com/claration/Feather/blob/v1.x/iOS/Resources/Icons/Main/Mac@3x.png?raw=true",
+  "website": "https://github.com/seomin0610/Feather",
+  "apps": [
+    {
+      "name": "Feather",
+      "bundleIdentifier": "thewonderofyou.Feather",
+      "developerName": "Samara",
+      "iconURL": "https://github.com/claration/Feather/blob/v1.x/iOS/Resources/Icons/Main/Mac@3x.png?raw=true",
+      "localizedDescription": "Feather is a free on-device iOS application manager/installer built with UIKit for quality.",
+      "subtitle": "On-device signing application",
+      "tintColor": "848ef9",
+      "versions": [
+        {
+          "version": "2.9.4.1",
+          "date": "2026-10-29T07:33:24Z",
+          "size": 18213437,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.1/Feather.ipa",
+          "localizedDescription": "- feat: check Feather updates against the private fork's own feed\n- feat: download from private GitHub releases with a saved token\n- feat: collapsible library sections and direct URL-scheme install\n- ci: add daily upstream sync from seomin0610/Feather\n- chore: update repo for v2.9.4"
+        }
+      ],
+      "appPermissions": {},
+      "screenshotURLs": [
+        "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Library.png?raw=true",
+        "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Repos.png?raw=true",
+        "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Sign.png?raw=true",
+        "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Store.png?raw=true"
+      ],
+      "version": "2.9.4.1",
+      "versionDate": "2026-10-29T07:33:24Z",
+      "size": 18213437,
+      "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.1/Feather.ipa"
+    }
+  ],
+  "news": []
+}
