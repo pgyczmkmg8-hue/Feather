@@ -31,7 +31,10 @@ struct LibraryView: View {
 	
 	@State private var _searchText = ""
 	@State private var _selectedScope: Scope = .all
-	
+
+	@AppStorage("Feather.library.isSignedCollapsed") private var _isSignedCollapsed = false
+	@AppStorage("Feather.library.isImportedCollapsed") private var _isImportedCollapsed = false
+
 	
 	@Namespace private var _namespace
 	
@@ -114,9 +117,11 @@ struct LibraryView: View {
 					!_filteredSignedApps.isEmpty,
 					_selectedScope == .all || _selectedScope == .signed
 				{
-					NBSection(
+					LibraryCollapsibleSection(
 						.localized("Signed"),
-						secondary: _filteredSignedApps.count.description
+						count: _filteredSignedApps.count,
+						isCollapsed: $_isSignedCollapsed,
+						forceExpanded: !_searchText.isEmpty
 					) {
 						ForEach(_filteredSignedApps, id: \.uuid) { app in
 							LibraryCellView(
@@ -135,9 +140,11 @@ struct LibraryView: View {
 					!_filteredImportedApps.isEmpty,
 					_selectedScope == .all || _selectedScope == .imported
 				{
-					NBSection(
+					LibraryCollapsibleSection(
 						.localized("Imported"),
-						secondary: _filteredImportedApps.count.description
+						count: _filteredImportedApps.count,
+						isCollapsed: $_isImportedCollapsed,
+						forceExpanded: !_searchText.isEmpty
 					) {
 						ForEach(_filteredImportedApps, id: \.uuid) { app in
 							LibraryCellView(

@@ -149,14 +149,10 @@ struct FeatherApp: App {
 				let fullPath = url.validatedScheme(after: "/install/"),
 				let downloadURL = URL(string: fullPath)
 			{
-				UIAlertController.showAlertWithCancel(
-					title: .localized("Install"),
-					message: .localized("Do you want to download and install this file?") + "\n\n\(downloadURL)",
-					actions: [
-						UIAlertAction(title: .localized("Install"), style: .default) { _ in
-							_ = DownloadManager.shared.startDownload(from: downloadURL)
-						}
-					]
+				// downloads straight away; the update id prefix sends the import on to sign and install
+				_ = DownloadManager.shared.startDownload(
+					from: downloadURL,
+					id: "\(AppUpdate.downloadIDPrefix)URLScheme_\(UUID().uuidString)"
 				)
 			}
 		} else {
