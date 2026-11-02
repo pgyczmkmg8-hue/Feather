@@ -245,6 +245,7 @@ struct LibraryView: View {
 				FileImporterRepresentableView(
 					allowedContentTypes:  [.ipa, .tipa],
 					allowsMultipleSelection: true,
+					initialDirectory: ImportDirectory.url,
 					onDocumentsPicked: { urls in
 						guard !urls.isEmpty else { return }
 						
