@@ -14,6 +14,13 @@
       "tintColor": "848ef9",
       "versions": [
         {
+          "version": "2.9.4.14",
+          "date": "2026-11-02T14:07:40Z",
+          "size": 29411445,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.14/Feather.ipa",
+          "localizedDescription": "- feat: show why a Feather update check failed from the Library refresh button"
+        },
+        {
           "version": "2.9.4.13",
           "date": "2026-11-02T14:06:14Z",
           "size": 29417524,
@@ -112,10 +119,10 @@
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Sign.png?raw=true",
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Store.png?raw=true"
       ],
-      "version": "2.9.4.13",
-      "versionDate": "2026-11-02T14:06:14Z",
-      "size": 29417524,
-      "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.13/Feather.ipa"
+      "version": "2.9.4.14",
+      "versionDate": "2026-11-02T14:07:40Z",
+      "size": 29411445,
+      "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.14/Feather.ipa"
     }
   ],
   "news": []
