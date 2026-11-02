@@ -91,8 +91,9 @@ struct ExtendedTabbarView: View {
 		} icon: {
 			if let iconURL = iconUrl {
 				LazyImage(url: iconURL) { state in
-					if let image = state.image {
-						image
+					// the tab bar draws template images as a solid shape, so keep the original colors
+					if let icon = state.imageContainer?.image {
+						Image(uiImage: icon.withRenderingMode(.alwaysOriginal))
 					} else {
 						standardIcon
 					}
