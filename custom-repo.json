@@ -14,6 +14,13 @@
       "tintColor": "848ef9",
       "versions": [
         {
+          "version": "2.9.4.17",
+          "date": "2026-11-02T14:14:53Z",
+          "size": 29409902,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.17/Feather.ipa",
+          "localizedDescription": ""
+        },
+        {
           "version": "2.9.4.16",
           "date": "2026-11-02T14:12:11Z",
           "size": 29409915,
@@ -133,10 +140,10 @@
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Sign.png?raw=true",
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Store.png?raw=true"
       ],
-      "version": "2.9.4.16",
-      "versionDate": "2026-11-02T14:12:11Z",
-      "size": 29409915,
-      "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.16/Feather.ipa"
+      "version": "2.9.4.17",
+      "versionDate": "2026-11-02T14:14:53Z",
+      "size": 29409902,
+      "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.17/Feather.ipa"
     }
   ],
   "news": []
