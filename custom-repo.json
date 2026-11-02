@@ -14,6 +14,13 @@
       "tintColor": "848ef9",
       "versions": [
         {
+          "version": "2.9.4.16",
+          "date": "2026-11-02T14:12:11Z",
+          "size": 29409915,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.16/Feather.ipa",
+          "localizedDescription": "- feat: show current and server versions on update check, read feed via contents API, drop All Repositories tab"
+        },
+        {
           "version": "2.9.4.15",
           "date": "2026-11-02T14:08:03Z",
           "size": 29411437,
@@ -126,10 +133,10 @@
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Sign.png?raw=true",
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Store.png?raw=true"
       ],
-      "version": "2.9.4.15",
-      "versionDate": "2026-11-02T14:08:03Z",
-      "size": 29411437,
-      "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.15/Feather.ipa"
+      "version": "2.9.4.16",
+      "versionDate": "2026-11-02T14:12:11Z",
+      "size": 29409915,
+      "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.16/Feather.ipa"
     }
   ],
   "news": []
