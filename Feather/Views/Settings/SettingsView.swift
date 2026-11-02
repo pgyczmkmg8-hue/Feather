@@ -16,8 +16,6 @@ struct SettingsView: View {
 	@AppStorage("feather.selectedCert") private var _storedSelectedCert: Int = 0
 	@State private var _currentIcon: String? = UIApplication.shared.alternateIconName
 	@State private var _isImportingDatabasePresenting = false
-	@State private var _isImportFolderPresenting = false
-	@State private var _importFolderName: String? = ImportDirectory.url?.lastPathComponent
 	
 	// MARK: Fetch
 	@FetchRequest(
@@ -50,27 +48,6 @@ struct SettingsView: View {
 					NavigationLink(destination: AppIconView(currentIcon: $_currentIcon)) {
 						Label(.localized("App Icon"), systemImage: "app.badge")
 					}
-				}
-
-				Section {
-					Button {
-						_isImportFolderPresenting = true
-					} label: {
-						HStack {
-							Label(.localized("Import Folder"), systemImage: "folder")
-							Spacer()
-							Text(verbatim: _importFolderName ?? .localized("Not set"))
-								.foregroundColor(.secondary)
-						}
-					}
-					if _importFolderName != nil {
-						Button(.localized("Reset to Default")) {
-							ImportDirectory.reset()
-							_importFolderName = nil
-						}
-					}
-				} footer: {
-					Text(.localized("Choose the folder that opens first when importing from Files."))
 				}
                 
 				NBSection(.localized("Certificates")) {
@@ -158,18 +135,6 @@ struct SettingsView: View {
 					Text(verbatim: "The previews run a fake signing or download job for about 10 seconds, leave the app to see them.")
 				}
 				#endif
-			}
-			.sheet(isPresented: $_isImportFolderPresenting) {
-				FileImporterRepresentableView(
-					allowedContentTypes: [.folder],
-					asCopy: false,
-					initialDirectory: ImportDirectory.url,
-					onDocumentsPicked: { urls in
-						guard let url = urls.first, ImportDirectory.save(url) else { return }
-						_importFolderName = url.lastPathComponent
-					}
-				)
-				.ignoresSafeArea()
 			}
 			.sheet(isPresented: $_isImportingDatabasePresenting) {
 				FileImporterRepresentableView(
