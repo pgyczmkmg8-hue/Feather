@@ -17,6 +17,8 @@
 | 비공개 GitHub 릴리즈/raw 다운로드 (토큰) | `Feather/Backend/GitHub/GitHubAuth.swift`(신규), `Feather/Views/Settings/GitHub/GitHubTokenView.swift`(신규), `SettingsView.swift`의 "GitHub 토큰" 항목, `DownloadManager.swift`의 `GitHubAuth.shouldAuthorize` 분기·`resumeDownload`의 `originalRequest` 사용·파일 끝 `// MARK: - GitHub` 확장 |
 | Feather 자체 업데이트를 우리 피드에서 확인 | `UpdateManager.swift`의 `FeatherUpdate.repositoryURL`(= `pgyczmkmg8-hue/Feather/main/custom-repo.json`)과 `_fetchRepository`의 `GitHubAuth` 분기, `custom-repo.json` |
 | MACHU 대체 아이콘 | `Feather/Resources/Icons/MACHU/`, `Info.plist`의 `CFBundleIcons`·`CFBundleIcons~ipad` 안 `MACHU` 항목, `AppIconView.swift`의 `"MACHU"` 섹션 |
+| iPhone 가로 방향 허용 (폴더블 기기에서 전체화면) | `Feather.xcodeproj/project.pbxproj`의 `INFOPLIST_KEY_UISupportedInterfaceOrientations` (Portrait + LandscapeLeft + LandscapeRight, Debug·Release 둘 다) |
+| 파일 가져오기 탐색기 기본 경로 고정 (iCloud Drive/Entertainment/Tech/ipa file) | `Feather/Utilities/ImportDirectory.swift`, `NimbleKit/.../FileImporterRepresentableView.swift`의 `initialDirectory`, `LibraryView.swift`의 `initialDirectory: ImportDirectory.url` |
 | 원본 자동 동기화 | `.github/workflows/sync_upstream.yml`, `tools/sync-upstream.sh` |
 | 우리 릴리즈 | `tools/release-custom.sh` (태그 `custom-<버전>`, `v*` 태그는 쓰지 않는다) |
 | 원본 `update_repo` 워크플로가 우리 릴리즈에 돌지 않게 | `.github/workflows/update_repo.yml`의 job `if: startsWith(…, 'v')` |
