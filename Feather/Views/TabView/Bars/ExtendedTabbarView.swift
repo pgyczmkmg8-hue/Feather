@@ -50,20 +50,6 @@ struct ExtendedTabbarView: View {
 					}
 				}
 				
-				ForEach(_sources, id: \.identifier) { source in
-					Tab {
-						NavigationStack {
-							SourceAppsView(object: [source], viewModel: viewModel)
-						}
-					} label: {
-						_icon(source.name ?? .localized("Unknown"), iconUrl: source.iconURL)
-					}
-					.swipeActions {
-						Button(.localized("Delete"), systemImage: "trash", role: .destructive) {
-							Storage.shared.deleteSource(for: source)
-						}
-					}
-				}
 			}
 			.sectionActions {
 				Button(.localized("Add Source"), systemImage: "plus") {
@@ -82,32 +68,6 @@ struct ExtendedTabbarView: View {
 			SourcesAddView()
 				.presentationDetents([.medium])
 		}
-	}
-	
-	@ViewBuilder
-	private func _icon(_ title: String, iconUrl: URL?) -> some View {
-		Label {
-			Text(title)
-		} icon: {
-			if let iconURL = iconUrl {
-				LazyImage(url: iconURL) { state in
-					// the tab bar draws template images as a solid shape, so keep the original colors
-					if let icon = state.imageContainer?.image {
-						Image(uiImage: icon.withRenderingMode(.alwaysOriginal))
-					} else {
-						standardIcon
-					}
-				}
-				.processors([.resize(width: 14), .circle()])
-			} else {
-				standardIcon
-			}
-		}
-	}
-
-	
-	var standardIcon: some View {
-		Image(systemName: "app.dashed")
 	}
 }
 
