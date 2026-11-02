@@ -51,6 +51,13 @@ struct FeatherUpdate: Equatable {
 	static let downloadID = "\(AppUpdate.downloadIDPrefix)Feather"
 }
 
+/// Outcome of checking Feather's own feed by hand.
+enum FeatherUpdateCheck {
+	case available(FeatherUpdate)
+	case upToDate(version: String?)
+	case failed(String)
+}
+
 @MainActor
 final class UpdateManager: ObservableObject {
 	static let shared = UpdateManager()
@@ -220,7 +227,29 @@ final class UpdateManager: ObservableObject {
 		guard let repository = await _fetchRepository(from: FeatherUpdate.repositoryURL) else {
 			return featherUpdate
 		}
+		return _featherUpdate(in: repository)
+	}
 
+	/// Checks the private feed right away and says why it failed, unlike the quiet background check.
+	func checkFeatherUpdateNow() async -> FeatherUpdateCheck {
+		guard GitHubToken.value != nil else {
+			return .failed("GitHub 토큰이 저장되어 있지 않습니다. 설정 → GitHub 토큰에서 저장해 주세요.")
+		}
+
+		do {
+			let repository = try await GitHubAuth.decode(ASRepository.self, from: FeatherUpdate.repositoryURL)
+			let update = _featherUpdate(in: repository)
+			featherUpdate = update
+			if let update {
+				return .available(update)
+			}
+			return .upToDate(version: _runningVersion)
+		} catch {
+			return .failed(error.localizedDescription)
+		}
+	}
+
+	private func _featherUpdate(in repository: ASRepository) -> FeatherUpdate? {
 		let bundleIdentifier = Bundle.main.bundleIdentifier
 		let localVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
 
