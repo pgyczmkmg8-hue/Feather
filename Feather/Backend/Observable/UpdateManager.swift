@@ -68,6 +68,8 @@ final class UpdateManager: ObservableObject {
 	@Published private(set) var isChecking = false
 	@Published private(set) var lastCheckedDate: Date?
 	@Published private(set) var featherUpdate: FeatherUpdate?
+	/// Why the last check of Feather's own feed failed, nil when it worked.
+	@Published private(set) var featherCheckError: String?
 	
 	private let _dataService = NBFetchService()
 	
@@ -223,13 +225,6 @@ final class UpdateManager: ObservableObject {
 		apps.forEach(Storage.shared.deleteApp(for:))
 	}
 
-	private func _findFeatherUpdate() async -> FeatherUpdate? {
-		guard let repository = await _fetchRepository(from: FeatherUpdate.repositoryURL) else {
-			return featherUpdate
-		}
-		return _featherUpdate(in: repository)
-	}
-
 	/// Checks the private feed right away and says why it failed, unlike the quiet background check.
 	func checkFeatherUpdateNow() async -> FeatherUpdateCheck {
 		guard GitHubToken.value != nil else {
@@ -344,7 +339,11 @@ final class UpdateManager: ObservableObject {
 		
 		let repositories = await _fetchRepositories(from: sources)
 		updates = _findUpdates(repositories: repositories, localApps: localApps)
-		featherUpdate = await _findFeatherUpdate()
+		if case .failed(let reason) = await checkFeatherUpdateNow() {
+			featherCheckError = reason
+		} else {
+			featherCheckError = nil
+		}
 	}
 	
 	private func _fetchRepositories(from sources: [AltSource]) async -> [(AltSource, ASRepository)] {

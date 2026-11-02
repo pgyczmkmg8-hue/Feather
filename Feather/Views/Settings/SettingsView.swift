@@ -16,7 +16,6 @@ struct SettingsView: View {
 	@AppStorage("feather.selectedCert") private var _storedSelectedCert: Int = 0
 	@State private var _currentIcon: String? = UIApplication.shared.alternateIconName
 	@State private var _isImportingDatabasePresenting = false
-	@State private var _isCheckingFeatherUpdate = false
 	
 	// MARK: Fetch
 	@FetchRequest(
@@ -84,18 +83,6 @@ struct SettingsView: View {
 					NavigationLink(destination: GitHubTokenView()) {
 						Label { Text(verbatim: "GitHub 토큰") } icon: { Image(systemName: "key") }
 					}
-					Button {
-						_checkFeatherUpdate()
-					} label: {
-						HStack {
-							Label { Text(verbatim: "업데이트 확인") } icon: { Image(systemName: "arrow.triangle.2.circlepath") }
-							if _isCheckingFeatherUpdate {
-								Spacer()
-								ProgressView()
-							}
-						}
-					}
-					.disabled(_isCheckingFeatherUpdate)
 				} footer: {
 					Text(.localized("Configure the apps way of installing, its zip compression levels, and custom modifications to apps."))
 				}
@@ -165,40 +152,6 @@ struct SettingsView: View {
 
 // MARK: - View extension
 extension SettingsView {
-	private func _checkFeatherUpdate() {
-		guard !_isCheckingFeatherUpdate else { return }
-		_isCheckingFeatherUpdate = true
-
-		Task { @MainActor in
-			let result = await UpdateManager.shared.checkFeatherUpdateNow()
-			_isCheckingFeatherUpdate = false
-			guard let presenter = UIApplication.topViewController() else { return }
-
-			switch result {
-			case .available(let update):
-				UIAlertController.showAlert(
-					presenter,
-					title: "새 버전 \(update.remoteVersion)",
-					message: update.releaseNotes ?? "업데이트할 수 있습니다.",
-					actions: [
-						UIAlertAction(title: "나중에", style: .cancel),
-						UIAlertAction(title: "업데이트", style: .default) { _ in
-							UpdateManager.shared.startFeatherUpdate(update)
-						}
-					]
-				)
-			case .upToDate(let version):
-				UIAlertController.showAlertWithOk(
-					presenter,
-					title: "최신 버전입니다",
-					message: "현재 버전 \(version ?? "-")"
-				)
-			case .failed(let reason):
-				UIAlertController.showAlertWithOk(presenter, title: "업데이트 확인 실패", message: reason)
-			}
-		}
-	}
-
 	@ViewBuilder
 	private func _feedback() -> some View {
 		Section {

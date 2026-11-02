@@ -202,8 +202,14 @@ struct LibraryView: View {
 				} else {
 					ToolbarItem(placement: .topBarTrailing) {
 						Button {
-							Task {
+							Task { @MainActor in
 								await _checkForUpdates()
+								if
+									let reason = updateManager.featherCheckError,
+									let presenter = UIApplication.topViewController()
+								{
+									UIAlertController.showAlertWithOk(presenter, title: "업데이트 확인 실패", message: reason)
+								}
 							}
 						} label: {
 							Image(systemName: _isUpdateCheckCompleteVisible ? "checkmark.circle.fill" : "arrow.triangle.2.circlepath")
