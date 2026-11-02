@@ -14,6 +14,13 @@
       "tintColor": "848ef9",
       "versions": [
         {
+          "version": "2.9.4.12",
+          "date": "2026-11-02T14:03:43Z",
+          "size": 29407598,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.12/Feather.ipa",
+          "localizedDescription": "- feat: remove per-source tabs from the tab bar"
+        },
+        {
           "version": "2.9.4.11",
           "date": "2026-11-02T14:00:33Z",
           "size": 29412262,
@@ -98,10 +105,10 @@
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Sign.png?raw=true",
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Store.png?raw=true"
       ],
-      "version": "2.9.4.11",
-      "versionDate": "2026-11-02T14:00:33Z",
-      "size": 29412262,
-      "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.11/Feather.ipa"
+      "version": "2.9.4.12",
+      "versionDate": "2026-11-02T14:03:43Z",
+      "size": 29407598,
+      "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.12/Feather.ipa"
     }
   ],
   "news": []
