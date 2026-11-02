@@ -54,7 +54,7 @@ struct FeatherUpdate: Equatable {
 /// Outcome of checking Feather's own feed by hand.
 enum FeatherUpdateCheck {
 	case available(FeatherUpdate)
-	case upToDate(version: String?)
+	case upToDate(local: String?, remote: String?)
 	case failed(String)
 }
 
@@ -70,6 +70,8 @@ final class UpdateManager: ObservableObject {
 	@Published private(set) var featherUpdate: FeatherUpdate?
 	/// Why the last check of Feather's own feed failed, nil when it worked.
 	@Published private(set) var featherCheckError: String?
+	/// Running and server versions of the last check that found nothing newer.
+	@Published private(set) var featherCheckNote: String?
 	
 	private let _dataService = NBFetchService()
 	
@@ -238,7 +240,11 @@ final class UpdateManager: ObservableObject {
 			if let update {
 				return .available(update)
 			}
-			return .upToDate(version: _runningVersion)
+			let remoteApp = repository.apps.first(where: { $0.id == Bundle.main.bundleIdentifier }) ?? repository.apps.first
+			guard let remoteVersion = remoteApp?.currentVersion else {
+				return .failed("피드에서 Feather 버전을 읽지 못했습니다.")
+			}
+			return .upToDate(local: _runningVersion, remote: remoteVersion)
 		} catch {
 			return .failed(error.localizedDescription)
 		}
@@ -339,10 +345,15 @@ final class UpdateManager: ObservableObject {
 		
 		let repositories = await _fetchRepositories(from: sources)
 		updates = _findUpdates(repositories: repositories, localApps: localApps)
-		if case .failed(let reason) = await checkFeatherUpdateNow() {
+		featherCheckError = nil
+		featherCheckNote = nil
+		switch await checkFeatherUpdateNow() {
+		case .failed(let reason):
 			featherCheckError = reason
-		} else {
-			featherCheckError = nil
+		case .upToDate(let local, let remote):
+			featherCheckNote = "현재 \(local ?? "-") · 서버 \(remote ?? "-")"
+		case .available:
+			break
 		}
 	}
 	

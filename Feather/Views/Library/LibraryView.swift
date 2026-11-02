@@ -204,11 +204,11 @@ struct LibraryView: View {
 						Button {
 							Task { @MainActor in
 								await _checkForUpdates()
-								if
-									let reason = updateManager.featherCheckError,
-									let presenter = UIApplication.topViewController()
-								{
+								guard let presenter = UIApplication.topViewController() else { return }
+								if let reason = updateManager.featherCheckError {
 									UIAlertController.showAlertWithOk(presenter, title: "업데이트 확인 실패", message: reason)
+								} else if let note = updateManager.featherCheckNote {
+									UIAlertController.showAlertWithOk(presenter, title: "Feather 최신 버전입니다", message: note)
 								}
 							}
 						} label: {

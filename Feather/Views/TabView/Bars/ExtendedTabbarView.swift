@@ -7,22 +7,12 @@
 //
 
 import SwiftUI
-import NukeUI
 
 @available(iOS 18, *)
 struct ExtendedTabbarView: View {
 	@Environment(\.horizontalSizeClass) var horizontalSizeClass
 	@AppStorage("Feather.tabCustomization") var customization = TabViewCustomization()
-	@StateObject var viewModel = SourcesViewModel.shared
 	@StateObject private var updateManager = UpdateManager.shared
-
-	@State private var _isAddingPresenting = false
-	
-	@FetchRequest(
-		entity: AltSource.entity(),
-		sortDescriptors: [NSSortDescriptor(keyPath: \AltSource.name, ascending: true)],
-		animation: .snappy
-	) private var _sources: FetchedResults<AltSource>
 		
 	var body: some View {
 		TabView {
@@ -42,31 +32,11 @@ struct ExtendedTabbarView: View {
 				.customizationBehavior(.reorderable, for: .tabBar, .sidebar)
 				.hidden(horizontalSizeClass == .compact)
 			}
-			
-			TabSection("Sources") {
-				Tab(.localized("All Repositories"), systemImage: "globe.desk") {
-					NavigationStack {
-						SourceAppsView(object: Array(_sources), viewModel: viewModel)
-					}
-				}
-				
-			}
-			.sectionActions {
-				Button(.localized("Add Source"), systemImage: "plus") {
-					_isAddingPresenting = true
-				}
-			}
-			.defaultVisibility(.hidden, for: .tabBar)
-			.hidden(horizontalSizeClass == .compact)
 		}
 		.tabViewStyle(.sidebarAdaptable)
 		.tabViewCustomization($customization)
 		.task {
 			await updateManager.checkForUpdatesIfNeeded()
-		}
-		.sheet(isPresented: $_isAddingPresenting) {
-			SourcesAddView()
-				.presentationDetents([.medium])
 		}
 	}
 }

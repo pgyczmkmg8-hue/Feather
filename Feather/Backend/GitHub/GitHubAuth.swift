@@ -139,6 +139,10 @@ enum GitHubAuth {
 		guard let token = GitHubToken.value else { return URLRequest(url: url) }
 
 		guard let asset = _ReleaseAsset(url) else {
+			// raw.githubusercontent.com is cached for minutes, so read files through the contents API to see a new release right away
+			if let contents = _contentsRequest(for: url, token: token) {
+				return contents
+			}
 			var request = URLRequest(url: url)
 			request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 			return request
@@ -180,6 +184,25 @@ enum GitHubAuth {
 			throw Error.http(status)
 		}
 		return try JSONDecoder().decode(type, from: data)
+	}
+
+	/// raw.githubusercontent.com/<owner>/<repo>/<ref>/<path> as a contents API request returning the raw file.
+	private static func _contentsRequest(for url: URL, token: String) -> URLRequest? {
+		guard url.host?.lowercased() == "raw.githubusercontent.com" else { return nil }
+
+		var parts = url.pathComponents.filter { $0 != "/" }
+		guard parts.count >= 4 else { return nil }
+		let owner = parts.removeFirst()
+		let repo = parts.removeFirst()
+		if parts.count >= 3, parts[0] == "refs", parts[1] == "heads" {
+			parts.removeFirst(2)
+		}
+		let ref = parts.removeFirst()
+		let path = parts.joined(separator: "/")
+
+		var request = _apiRequest("repos/\(owner)/\(repo)/contents/\(path)?ref=\(ref)", token: token)
+		request.setValue("application/vnd.github.raw+json", forHTTPHeaderField: "Accept")
+		return request
 	}
 
 	private static func _apiRequest(_ path: String, token: String) -> URLRequest {

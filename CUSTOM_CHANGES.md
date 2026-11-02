@@ -19,8 +19,8 @@
 | MACHU 대체 아이콘 | `Feather/Resources/Icons/MACHU/`, `Info.plist`의 `CFBundleIcons`·`CFBundleIcons~ipad` 안 `MACHU` 항목, `AppIconView.swift`의 `"MACHU"` 섹션 |
 | iPhone 가로 방향 허용 (폴더블 기기에서 전체화면) | `Feather.xcodeproj/project.pbxproj`의 `INFOPLIST_KEY_UISupportedInterfaceOrientations` (Portrait + LandscapeLeft + LandscapeRight, Debug·Release 둘 다) |
 | 파일 가져오기 탐색기 기본 경로 고정 (iCloud Drive/Entertainment/Tech/ipa file) | `Feather/Utilities/ImportDirectory.swift`, `NimbleKit/.../FileImporterRepresentableView.swift`의 `initialDirectory`, `LibraryView.swift`의 `initialDirectory: ImportDirectory.url` |
-| 탭바(iPad·폴더블)에서 저장소별 탭 제거 (저장소 탭에서 볼 수 있음) | `Feather/Views/TabView/Bars/ExtendedTabbarView.swift`의 `TabSection("Sources")` 안 `ForEach(_sources…)`와 `_icon` 삭제 |
-| 라이브러리의 회전(업데이트 확인) 버튼이 Feather 업데이트 확인 실패 이유를 알림으로 표시 | `LibraryView.swift` 회전 버튼의 `featherCheckError` 알림, `UpdateManager.swift`의 `FeatherUpdateCheck`·`checkFeatherUpdateNow`·`featherCheckError`·`_featherUpdate(in:)` |
+| 탭바(iPad·폴더블)에서 `TabSection("Sources")` 전체 제거 — 저장소별 탭과 "모든 저장소" 탭 (저장소 탭에서 볼 수 있음) | `Feather/Views/TabView/Bars/ExtendedTabbarView.swift` (섹션, `_sources`, `viewModel`, 저장소 추가 시트, `_icon` 삭제) |
+| 라이브러리의 회전(업데이트 확인) 버튼이 Feather 업데이트 확인 실패 이유를 알림으로 표시 | `LibraryView.swift` 회전 버튼의 `featherCheckError`·`featherCheckNote` 알림, `GitHubAuth.swift`의 `_contentsRequest`(raw 주소를 캐시 없는 contents API로 읽음), `UpdateManager.swift`의 `FeatherUpdateCheck`·`checkFeatherUpdateNow`·`featherCheckError`·`_featherUpdate(in:)` |
 | 원본 자동 동기화 | `.github/workflows/sync_upstream.yml`, `tools/sync-upstream.sh` |
 | 우리 릴리즈 | `tools/release-custom.sh` (태그 `custom-<버전>`, `v*` 태그는 쓰지 않는다) |
 | 원본 `update_repo` 워크플로가 우리 릴리즈에 돌지 않게 | `.github/workflows/update_repo.yml`의 job `if: startsWith(…, 'v')` |
