@@ -53,6 +53,9 @@ struct AppIconView: View {
 		],
 		"Walkure": [
 			AltIcon(displayName: "Walkure", author: "Walkure", key: "Walkure"),
+		],
+		"Angels": [
+			AltIcon(displayName: "Angels", author: "Angels", key: "Angels"),
 		]
 	]
 	
