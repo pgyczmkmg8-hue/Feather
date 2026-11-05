@@ -113,11 +113,11 @@
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>
-			<key>Angels</key>
+			<key>FureKumo</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>Angels</string>
+					<string>FureKumo</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<false/>
@@ -209,11 +209,11 @@
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>
-			<key>Angels</key>
+			<key>FureKumo</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>Angels</string>
+					<string>FureKumo</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<false/>
