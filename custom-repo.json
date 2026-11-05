@@ -14,6 +14,13 @@
       "tintColor": "848ef9",
       "versions": [
         {
+          "version": "2.9.4.19",
+          "date": "2026-11-05T13:50:05Z",
+          "size": 29437746,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.19/Feather.ipa",
+          "localizedDescription": "- feat: add Angels alternate app icon"
+        },
+        {
           "version": "2.9.4.18",
           "date": "2026-11-03T10:16:36Z",
           "size": 29415911,
@@ -147,10 +154,10 @@
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Sign.png?raw=true",
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Store.png?raw=true"
       ],
-      "version": "2.9.4.18",
-      "versionDate": "2026-11-03T10:16:36Z",
-      "size": 29415911,
-      "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.18/Feather.ipa"
+      "version": "2.9.4.19",
+      "versionDate": "2026-11-05T13:50:05Z",
+      "size": 29437746,
+      "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.19/Feather.ipa"
     }
   ],
   "news": []
