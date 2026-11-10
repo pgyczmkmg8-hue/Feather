@@ -1,6 +1,6 @@
 # 개조 내역 (pgyczmkmg8-hue/Feather)
 
-원본 [seomin0610/Feather](https://github.com/seomin0610/Feather)의 비공개 개조판이다.
+원본 [seomin0610/Feather](https://github.com/seomin0610/Feather)의 공개 포크 개조판이다. (원래 비공개 미러였고, 공개 포크로 옮겼다. 옛 비공개 저장소는 `Feather-private`로 보관 중.)
 원본을 합칠 때 아래 개조는 반드시 유지한다.
 
 ## 유지할 것
@@ -24,6 +24,15 @@
 | 원본 자동 동기화 | `.github/workflows/sync_upstream.yml`, `tools/sync-upstream.sh` |
 | 우리 릴리즈 | `tools/release-custom.sh` (태그 `custom-<버전>`, `v*` 태그는 쓰지 않는다) |
 | 원본 `update_repo` 워크플로가 우리 릴리즈에 돌지 않게 | `.github/workflows/update_repo.yml`의 job `if: startsWith(…, 'v')` |
+
+## 비공개 저장소와 GitHub 토큰
+
+이 저장소는 공개지만, **설정 → GitHub 토큰 기능은 유지한다.** 비공개 GitHub 저장소의 릴리즈·raw 파일을 받는 데 쓰기 때문이다.
+
+- 토큰은 앱 안에서 사용자가 직접 입력하며, 기기에만 저장된다. 저장소나 채팅에 적지 않는다.
+- 이 저장소의 업데이트 확인은 지금 토큰이 있어야 동작한다. (공개라서 없어도 되게 바꿀 수 있으나 일부러 그대로 둔다.)
+- 이 포크를 쓰는 다른 사람도 **자기만의 비공개 저장소**로 앱 소스나 업데이트 피드를 운영할 수 있다. 그럴 때는 자기 토큰(`repo` 읽기 권한)을 설정에 넣으면 된다.
+- 비공개 저장소를 쓰려면 `FeatherUpdate.repositoryURL`(`UpdateManager.swift`)과 `tools/release-custom.sh`의 `REPO`, `custom-repo.json`의 주소를 자기 저장소로 바꾼다.
 
 ## 원본의 `app-repo.json`
 
