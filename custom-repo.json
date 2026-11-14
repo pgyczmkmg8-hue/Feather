@@ -14,6 +14,13 @@
       "tintColor": "848ef9",
       "versions": [
         {
+          "version": "2.9.4.21",
+          "date": "2026-11-14T11:59:26Z",
+          "size": 29437703,
+          "downloadURL": "https://gitlab.com/Yami_Q_Ray/Feather/-/releases/custom-2.9.4.21/downloads/Feather.ipa",
+          "localizedDescription": "- feat: move repository and update feed to GitLab\n- docs: note public fork and private repo/token usage"
+        },
+        {
           "version": "2.9.4.20",
           "date": "2026-11-05T13:55:20Z",
           "size": 29437767,
@@ -161,10 +168,10 @@
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Sign.png?raw=true",
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Store.png?raw=true"
       ],
-      "version": "2.9.4.20",
-      "versionDate": "2026-11-05T13:55:20Z",
-      "size": 29437767,
-      "downloadURL": "https://gitlab.com/Yami_Q_Ray/Feather/-/releases/custom-2.9.4.20/downloads/Feather.ipa"
+      "version": "2.9.4.21",
+      "versionDate": "2026-11-14T11:59:26Z",
+      "size": 29437703,
+      "downloadURL": "https://gitlab.com/Yami_Q_Ray/Feather/-/releases/custom-2.9.4.21/downloads/Feather.ipa"
     }
   ],
   "news": []
