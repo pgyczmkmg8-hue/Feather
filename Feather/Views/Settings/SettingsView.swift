@@ -35,7 +35,7 @@ struct SettingsView: View {
 		}
 		return _certificates[_storedSelectedCert]
 	}
-	private let _githubUrl = "https://github.com/pgyczmkmg8-hue/Feather"
+	private let _gitlabUrl = "https://gitlab.com/Yami_Q_Ray/Feather"
     
 	// MARK: Body
 	var body: some View {
@@ -199,13 +199,13 @@ extension SettingsView {
 			}
             
 			Button(.localized("Submit Feedback"), systemImage: "safari") {
-				UIApplication.open(URL(string: "\(_githubUrl)/issues/new/choose")!)
+				UIApplication.open(URL(string: "\(_gitlabUrl)/-/issues/new")!)
 			}
-			Button(.localized("GitHub Repository"), systemImage: "safari") {
-				UIApplication.open(_githubUrl)
+			Button("GitLab 저장소", systemImage: "safari") {
+				UIApplication.open(_gitlabUrl)
 			}
 		} footer: {
-			Text(.localized("If any issues occur within the app please report it via the GitHub repository. When submitting an issue, make sure to submit detailed information."))
+			Text(verbatim: "앱에 문제가 생기면 GitLab 저장소에 이슈로 알려 주세요. 이슈에는 자세한 정보를 적어 주세요.")
 		}
 	}
     

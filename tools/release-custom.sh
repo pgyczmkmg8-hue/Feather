@@ -1,12 +1,12 @@
 #!/bin/sh
 # Build Feather from main, publish it as a custom-<version> release on the
-# private repo, and list it in custom-repo.json so the app offers it as an update.
+# GitLab project (public), and list it in custom-repo.json so the app offers it as an update.
 #
 # Version: upstream FEATHER_PROJECT_VERSION plus a build counter, e.g. 2.9.4.1, 2.9.4.2.
 set -e
 cd "$(git rev-parse --show-toplevel)"
 
-REPO=pgyczmkmg8-hue/Feather
+REPO=Yami_Q_Ray/Feather
 FEED=custom-repo.json
 
 if [ -n "$(git status --porcelain)" ]; then
@@ -17,7 +17,8 @@ git checkout -q main
 git pull -q --ff-only origin main
 
 BASE=$(sed -n 's/^FEATHER_PROJECT_VERSION *= *//p' Feather.xcconfig | tr -d '[:space:]')
-COUNT=$(gh release list -R "$REPO" --limit 200 --json tagName -q ".[].tagName" | grep -c "^custom-$BASE\." || true)
+git fetch -q --tags origin
+COUNT=$(git tag --list "custom-$BASE.*" | wc -l | tr -d ' ')
 VERSION="$BASE.$((COUNT + 1))"
 TAG="custom-$VERSION"
 echo "Building Feather $VERSION ($TAG)"
@@ -49,16 +50,16 @@ PREVIOUS=$(git tag --list 'custom-*' --sort=-creatordate | head -1)
 [ -z "$PREVIOUS" ] && PREVIOUS=$(git describe --tags --abbrev=0 --match 'v*' 2>/dev/null || true)
 NOTES=$(git log --no-merges --format='- %s' ${PREVIOUS:+"$PREVIOUS"..}HEAD | grep -v '^- chore: custom release ' || true)
 
-gh release create "$TAG" packages/Feather.ipa \
+glab release create "$TAG" packages/Feather.ipa \
 	-R "$REPO" \
-	--target main \
-	--title "Feather $VERSION" \
+	--ref main \
+	--name "Feather $VERSION" \
 	--notes "${NOTES:-Feather $VERSION}"
 git fetch -q --tags origin
 
 SIZE=$(stat -f %z packages/Feather.ipa)
 DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-URL="https://github.com/$REPO/releases/download/$TAG/Feather.ipa"
+URL="https://gitlab.com/$REPO/-/releases/$TAG/downloads/Feather.ipa"
 
 # custom-repo.json starts from upstream's app entry and keeps only our versions
 [ -f "$FEED" ] || jq '.apps = [.apps[0] | .versions = []] | .news = [] | .name = "Feather (custom)" | .identifier = "feather.custom"' app-repo.json > "$FEED"

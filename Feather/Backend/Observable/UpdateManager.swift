@@ -46,8 +46,8 @@ struct FeatherUpdate: Equatable {
 	let size: Int64?
 	let sourceProvenance: SourceAppProvenance
 
-	// private fork feed, read with the saved GitHub token (tools/release-custom.sh publishes it)
-	static let repositoryURL = URL(string: "https://raw.githubusercontent.com/pgyczmkmg8-hue/Feather/main/custom-repo.json")!
+	// fork feed on GitLab (tools/release-custom.sh publishes it); public, so no token. The API form isn't cached for minutes like /-/raw
+	static let repositoryURL = URL(string: "https://gitlab.com/api/v4/projects/Yami_Q_Ray%2FFeather/repository/files/custom-repo.json/raw?ref=main")!
 	static let downloadID = "\(AppUpdate.downloadIDPrefix)Feather"
 }
 
@@ -227,12 +227,8 @@ final class UpdateManager: ObservableObject {
 		apps.forEach(Storage.shared.deleteApp(for:))
 	}
 
-	/// Checks the private feed right away and says why it failed, unlike the quiet background check.
+	/// Checks the GitLab feed right away and says why it failed, unlike the quiet background check.
 	func checkFeatherUpdateNow() async -> FeatherUpdateCheck {
-		guard GitHubToken.value != nil else {
-			return .failed("GitHub 토큰이 저장되어 있지 않습니다. 설정 → GitHub 토큰에서 저장해 주세요.")
-		}
-
 		do {
 			let repository = try await GitHubAuth.decode(ASRepository.self, from: FeatherUpdate.repositoryURL)
 			let update = _featherUpdate(in: repository)

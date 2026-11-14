@@ -144,7 +144,10 @@ enum GitHubAuth {
 				return contents
 			}
 			var request = URLRequest(url: url)
-			request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+			// the token belongs to GitHub only; GitLab (or anything else) must never see it
+			if let host = url.host?.lowercased(), host == "github.com" || host.hasSuffix(".github.com") || host.hasSuffix(".githubusercontent.com") {
+				request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+			}
 			return request
 		}
 
