@@ -21,6 +21,7 @@
 | 파일 가져오기 탐색기 기본 경로: 설정에서 고른 폴더(북마크), 없으면 iCloud Drive/Entertainment/Tech/ipa file | `Feather/Utilities/ImportDirectory.swift`, `SettingsView.swift`의 "가져오기 기본 경로" 항목·시트, `NimbleKit/.../FileImporterRepresentableView.swift`의 `initialDirectory`, `LibraryView.swift`의 `initialDirectory: ImportDirectory.url` |
 | 탭바(iPad·폴더블)에서 `TabSection("Sources")` 전체 제거 — 저장소별 탭과 "모든 저장소" 탭 (저장소 탭에서 볼 수 있음) | `Feather/Views/TabView/Bars/ExtendedTabbarView.swift` (섹션, `_sources`, `viewModel`, 저장소 추가 시트, `_icon` 삭제) |
 | 라이브러리의 회전(업데이트 확인) 버튼이 Feather 업데이트 확인 실패 이유를 알림으로 표시 | `LibraryView.swift` 회전 버튼의 `featherCheckError`·`featherCheckNote` 알림, `GitHubAuth.swift`의 `_contentsRequest`(raw 주소를 캐시 없는 contents API로 읽음), `UpdateManager.swift`의 `FeatherUpdateCheck`·`checkFeatherUpdateNow`·`featherCheckError`·`_featherUpdate(in:)` |
+| 앱이 포그라운드로 돌아올 때 업데이트 자동 확인 (5분 간격 제한) | `TabbarView.swift`·`ExtendedTabbarView.swift`의 `didBecomeActiveNotification` `.onReceive` |
 | 원본 자동 동기화 | `tools/sync-upstream.sh`(수동 실행). `.github/workflows/sync_upstream.yml`은 GitHub 전용이라 GitLab에서는 돌지 않는다 |
 | 우리 릴리즈 | `tools/release-custom.sh` (GitLab에 `glab release create`로 올림. 태그 `custom-<버전>`, `v*` 태그는 쓰지 않는다) |
 | 원본 `update_repo` 워크플로가 우리 릴리즈에 돌지 않게 | `.github/workflows/update_repo.yml`의 job `if: startsWith(…, 'v')` |

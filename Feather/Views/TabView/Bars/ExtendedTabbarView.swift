@@ -38,6 +38,10 @@ struct ExtendedTabbarView: View {
 		.task {
 			await updateManager.checkForUpdatesIfNeeded()
 		}
+		// back from another app: check again, at most every 5 minutes
+		.onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+			Task { await updateManager.checkForUpdatesIfNeeded(interval: 60 * 5) }
+		}
 	}
 }
 
