@@ -97,7 +97,7 @@ enum GitHubAuth {
 			case .assetNotFound(let name):
 				return "GitHub 릴리즈에서 \(name) 파일을 찾지 못했습니다."
 			case .http(let status):
-				return "GitHub API HTTP \(status) — 토큰 권한이나 주소를 확인하세요."
+				return "HTTP \(status) — 토큰 권한이나 주소를 확인하세요."
 			}
 		}
 	}
@@ -130,12 +130,14 @@ enum GitHubAuth {
 
 	/// Whether a download from this URL should go through the token, which is only when one is saved.
 	static func shouldAuthorize(_ url: URL) -> Bool {
+		if GitLabAuth.shouldAuthorize(url) { return true }
 		guard GitHubToken.value != nil else { return false }
 		return _ReleaseAsset(url) != nil || url.host?.lowercased() == "raw.githubusercontent.com"
 	}
 
 	/// Turns a browser release link into an authorized API request, since private release links 404 even with a token.
 	static func request(for url: URL) async throws -> URLRequest {
+		if let gitlab = GitLabAuth.request(for: url) { return gitlab }
 		guard let token = GitHubToken.value else { return URLRequest(url: url) }
 
 		guard let asset = _ReleaseAsset(url) else {

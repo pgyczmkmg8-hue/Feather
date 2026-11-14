@@ -106,6 +106,9 @@ struct SettingsView: View {
 					NavigationLink(destination: GitHubTokenView()) {
 						Label { Text(verbatim: "GitHub 토큰") } icon: { Image(systemName: "key") }
 					}
+					NavigationLink(destination: GitLabTokenView()) {
+						Label { Text(verbatim: "GitLab 토큰") } icon: { Image(systemName: "key.horizontal") }
+					}
 				} footer: {
 					Text(.localized("Configure the apps way of installing, its zip compression levels, and custom modifications to apps."))
 				}
