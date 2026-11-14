@@ -14,6 +14,13 @@
       "tintColor": "848ef9",
       "versions": [
         {
+          "version": "2.9.4.23",
+          "date": "2026-11-14T12:13:27Z",
+          "size": 29448543,
+          "downloadURL": "https://gitlab.com/Yami_Q_Ray/Feather/-/releases/custom-2.9.4.23/downloads/Feather.ipa",
+          "localizedDescription": "- feat: private GitLab token for source feeds and release downloads"
+        },
+        {
           "version": "2.9.4.22",
           "date": "2026-11-14T12:06:05Z",
           "size": 29439314,
@@ -175,10 +182,10 @@
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Sign.png?raw=true",
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Store.png?raw=true"
       ],
-      "version": "2.9.4.22",
-      "versionDate": "2026-11-14T12:06:05Z",
-      "size": 29439314,
-      "downloadURL": "https://gitlab.com/Yami_Q_Ray/Feather/-/releases/custom-2.9.4.22/downloads/Feather.ipa"
+      "version": "2.9.4.23",
+      "versionDate": "2026-11-14T12:13:27Z",
+      "size": 29448543,
+      "downloadURL": "https://gitlab.com/Yami_Q_Ray/Feather/-/releases/custom-2.9.4.23/downloads/Feather.ipa"
     }
   ],
   "news": []
