@@ -14,6 +14,13 @@
       "tintColor": "848ef9",
       "versions": [
         {
+          "version": "2.9.4.22",
+          "date": "2026-11-14T12:06:05Z",
+          "size": 29439314,
+          "downloadURL": "https://gitlab.com/Yami_Q_Ray/Feather/-/releases/custom-2.9.4.22/downloads/Feather.ipa",
+          "localizedDescription": "- feat: re-check for updates when the app returns to the foreground"
+        },
+        {
           "version": "2.9.4.21",
           "date": "2026-11-14T11:59:26Z",
           "size": 29437703,
@@ -168,10 +175,10 @@
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Sign.png?raw=true",
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Store.png?raw=true"
       ],
-      "version": "2.9.4.21",
-      "versionDate": "2026-11-14T11:59:26Z",
-      "size": 29437703,
-      "downloadURL": "https://gitlab.com/Yami_Q_Ray/Feather/-/releases/custom-2.9.4.21/downloads/Feather.ipa"
+      "version": "2.9.4.22",
+      "versionDate": "2026-11-14T12:06:05Z",
+      "size": 29439314,
+      "downloadURL": "https://gitlab.com/Yami_Q_Ray/Feather/-/releases/custom-2.9.4.22/downloads/Feather.ipa"
     }
   ],
   "news": []
