@@ -1,0 +1,192 @@
+{
+  "name": "Feather (custom)",
+  "identifier": "feather.custom",
+  "iconURL": "https://github.com/claration/Feather/blob/v1.x/iOS/Resources/Icons/Main/Mac@3x.png?raw=true",
+  "website": "https://github.com/seomin0610/Feather",
+  "apps": [
+    {
+      "name": "Feather",
+      "bundleIdentifier": "thewonderofyou.Feather",
+      "developerName": "Samara",
+      "iconURL": "https://github.com/claration/Feather/blob/v1.x/iOS/Resources/Icons/Main/Mac@3x.png?raw=true",
+      "localizedDescription": "Feather is a free on-device iOS application manager/installer built with UIKit for quality.",
+      "subtitle": "On-device signing application",
+      "tintColor": "848ef9",
+      "versions": [
+        {
+          "version": "2.9.4.23",
+          "date": "2026-11-14T12:13:27Z",
+          "size": 29448543,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.23/Feather.ipa",
+          "localizedDescription": "- feat: private GitLab token for source feeds and release downloads"
+        },
+        {
+          "version": "2.9.4.22",
+          "date": "2026-11-14T12:06:05Z",
+          "size": 29439314,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.22/Feather.ipa",
+          "localizedDescription": "- feat: re-check for updates when the app returns to the foreground"
+        },
+        {
+          "version": "2.9.4.21",
+          "date": "2026-11-14T11:59:26Z",
+          "size": 29437703,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.21/Feather.ipa",
+          "localizedDescription": "- feat: move repository and update feed to GitLab\n- docs: note public fork and private repo/token usage"
+        },
+        {
+          "version": "2.9.4.20",
+          "date": "2026-11-05T13:55:20Z",
+          "size": 29437767,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.20/Feather.ipa",
+          "localizedDescription": "- feat: rename Angels alternate icon to FureKumo"
+        },
+        {
+          "version": "2.9.4.19",
+          "date": "2026-11-05T13:50:05Z",
+          "size": 29437746,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.19/Feather.ipa",
+          "localizedDescription": "- feat: add Angels alternate app icon"
+        },
+        {
+          "version": "2.9.4.18",
+          "date": "2026-11-03T10:16:36Z",
+          "size": 29415911,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.18/Feather.ipa",
+          "localizedDescription": "- feat: choose the Files importer folder per device, keep the iCloud folder as fallback"
+        },
+        {
+          "version": "2.9.4.17",
+          "date": "2026-11-02T14:14:53Z",
+          "size": 29409902,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.17/Feather.ipa",
+          "localizedDescription": ""
+        },
+        {
+          "version": "2.9.4.16",
+          "date": "2026-11-02T14:12:11Z",
+          "size": 29409915,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.16/Feather.ipa",
+          "localizedDescription": "- feat: show current and server versions on update check, read feed via contents API, drop All Repositories tab"
+        },
+        {
+          "version": "2.9.4.15",
+          "date": "2026-11-02T14:08:03Z",
+          "size": 29411437,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.15/Feather.ipa",
+          "localizedDescription": ""
+        },
+        {
+          "version": "2.9.4.14",
+          "date": "2026-11-02T14:07:40Z",
+          "size": 29411445,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.14/Feather.ipa",
+          "localizedDescription": "- feat: show why a Feather update check failed from the Library refresh button"
+        },
+        {
+          "version": "2.9.4.13",
+          "date": "2026-11-02T14:06:14Z",
+          "size": 29417524,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.13/Feather.ipa",
+          "localizedDescription": "- feat: add a Check for Updates button that reports why a check failed"
+        },
+        {
+          "version": "2.9.4.12",
+          "date": "2026-11-02T14:03:43Z",
+          "size": 29407598,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.12/Feather.ipa",
+          "localizedDescription": "- feat: remove per-source tabs from the tab bar"
+        },
+        {
+          "version": "2.9.4.11",
+          "date": "2026-11-02T14:00:33Z",
+          "size": 29412262,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.11/Feather.ipa",
+          "localizedDescription": "- fix: keep source icon colors in the tab bar"
+        },
+        {
+          "version": "2.9.4.10",
+          "date": "2026-11-02T13:58:33Z",
+          "size": 29412389,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.10/Feather.ipa",
+          "localizedDescription": "- fix: allow landscape on iPhone so the app fills foldable screens"
+        },
+        {
+          "version": "2.9.4.9",
+          "date": "2026-11-02T13:56:11Z",
+          "size": 29412380,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.9/Feather.ipa",
+          "localizedDescription": "- feat: open the Files importer at iCloud Drive/Entertainment/Tech/ipa file"
+        },
+        {
+          "version": "2.9.4.8",
+          "date": "2026-11-02T13:52:13Z",
+          "size": 29416859,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.8/Feather.ipa",
+          "localizedDescription": "- feat: choose the folder the Files importer opens to"
+        },
+        {
+          "version": "2.9.4.7",
+          "date": "2026-10-29T14:57:25Z",
+          "size": 29408120,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.7/Feather.ipa",
+          "localizedDescription": "- fix: keep GitHub token in app storage and point settings at the fork"
+        },
+        {
+          "version": "2.9.4.6",
+          "date": "2026-10-29T14:47:38Z",
+          "size": 29407296,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.6/Feather.ipa",
+          "localizedDescription": "- feat: use Walkure as default app icon"
+        },
+        {
+          "version": "2.9.4.5",
+          "date": "2026-10-29T14:44:52Z",
+          "size": 18393800,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.5/Feather.ipa",
+          "localizedDescription": "- feat: rename ALT2 alternate icon to Walkure"
+        },
+        {
+          "version": "2.9.4.4",
+          "date": "2026-10-29T14:43:36Z",
+          "size": 18393718,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.4/Feather.ipa",
+          "localizedDescription": "- feat: add ALT2 alternate app icon"
+        },
+        {
+          "version": "2.9.4.3",
+          "date": "2026-10-29T07:54:31Z",
+          "size": 18282815,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.3/Feather.ipa",
+          "localizedDescription": "- docs: list fork customizations to keep when merging upstream\n- chore: leave custom release commits out of release notes"
+        },
+        {
+          "version": "2.9.4.2",
+          "date": "2026-10-29T07:47:41Z",
+          "size": 18282813,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.2/Feather.ipa",
+          "localizedDescription": "- feat: add MACHU alternate app icon\n- chore: custom release 2.9.4.1"
+        },
+        {
+          "version": "2.9.4.1",
+          "date": "2026-10-29T07:33:24Z",
+          "size": 18213437,
+          "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.1/Feather.ipa",
+          "localizedDescription": "- feat: check Feather updates against the private fork's own feed\n- feat: download from private GitHub releases with a saved token\n- feat: collapsible library sections and direct URL-scheme install\n- ci: add daily upstream sync from seomin0610/Feather\n- chore: update repo for v2.9.4"
+        }
+      ],
+      "appPermissions": {},
+      "screenshotURLs": [
+        "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Library.png?raw=true",
+        "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Repos.png?raw=true",
+        "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Sign.png?raw=true",
+        "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Store.png?raw=true"
+      ],
+      "version": "2.9.4.23",
+      "versionDate": "2026-11-14T12:13:27Z",
+      "size": 29448543,
+      "downloadURL": "https://github.com/pgyczmkmg8-hue/Feather/releases/download/custom-2.9.4.23/Feather.ipa"
+    }
+  ],
+  "news": []
+}

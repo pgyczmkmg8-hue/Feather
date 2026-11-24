@@ -36,6 +36,7 @@ struct SettingsView: View {
 		return _certificates[_storedSelectedCert]
 	}
 	private let _gitlabUrl = "https://gitlab.com/Yami_Q_Ray/Feather"
+	private let _githubUrl = "https://github.com/pgyczmkmg8-hue/Feather"
     
 	// MARK: Body
 	var body: some View {
@@ -206,6 +207,9 @@ extension SettingsView {
 			}
 			Button("GitLab 저장소", systemImage: "safari") {
 				UIApplication.open(_gitlabUrl)
+			}
+			Button("GitHub 저장소", systemImage: "safari") {
+				UIApplication.open(_githubUrl)
 			}
 		} footer: {
 			Text(verbatim: "앱에 문제가 생기면 GitLab 저장소에 이슈로 알려 주세요. 이슈에는 자세한 정보를 적어 주세요.")

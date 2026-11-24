@@ -191,6 +191,18 @@ enum GitHubAuth {
 		return try JSONDecoder().decode(type, from: data)
 	}
 
+	/// Like `decode`, but never sends a token. For public feeds that must stay readable when a saved token has expired or been revoked.
+	static func decodePublic<T: Decodable>(_ type: T.Type, from url: URL) async throws -> T {
+		var request = URLRequest(url: url)
+		request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+
+		let (data, response) = try await URLSession.shared.data(for: request)
+		if let status = (response as? HTTPURLResponse)?.statusCode, !(200..<300).contains(status) {
+			throw Error.http(status)
+		}
+		return try JSONDecoder().decode(type, from: data)
+	}
+
 	/// raw.githubusercontent.com/<owner>/<repo>/<ref>/<path> as a contents API request returning the raw file.
 	private static func _contentsRequest(for url: URL, token: String) -> URLRequest? {
 		guard url.host?.lowercased() == "raw.githubusercontent.com" else { return nil }

@@ -46,15 +46,19 @@ struct FeatherUpdate: Equatable {
 	let size: Int64?
 	let sourceProvenance: SourceAppProvenance
 
-	// fork feed on GitLab (tools/release-custom.sh publishes it); public, so no token. The API form isn't cached for minutes like /-/raw
+	// fork feeds (tools/release-custom.sh writes both); public, so no token.
+	// GitLab is read first, and its API form isn't cached for minutes like /-/raw. The GitHub mirror feed (same releases, GitHub download links) is the fallback when GitLab can't be read
 	static let repositoryURL = URL(string: "https://gitlab.com/api/v4/projects/Yami_Q_Ray%2FFeather/repository/files/custom-repo.json/raw?ref=main")!
+	static let mirrorRepositoryURL = URL(string: "https://raw.githubusercontent.com/pgyczmkmg8-hue/Feather/main/custom-repo-github.json")!
+	static let repositoryURLs = [repositoryURL, mirrorRepositoryURL]
 	static let downloadID = "\(AppUpdate.downloadIDPrefix)Feather"
 }
 
 /// Outcome of checking Feather's own feed by hand.
 enum FeatherUpdateCheck {
 	case available(FeatherUpdate)
-	case upToDate(local: String?, remote: String?)
+	/// `via` names the mirror feed when GitLab couldn't be read, nil otherwise.
+	case upToDate(local: String?, remote: String?, via: String?)
 	case failed(String)
 }
 
@@ -176,11 +180,11 @@ final class UpdateManager: ObservableObject {
 			return
 		}
 
-		let repositoryURL = _normalizedSourceURL(FeatherUpdate.repositoryURL)
+		let repositoryURLs = Set(FeatherUpdate.repositoryURLs.map { _normalizedSourceURL($0) })
 		let uuids = Set(Storage.shared.getSourceMetadata().compactMap { metadata -> String? in
 			guard
 				let url = metadata.sourceRepositoryURL,
-				_normalizedSourceURL(url) == repositoryURL
+				repositoryURLs.contains(_normalizedSourceURL(url))
 			else {
 				return nil
 			}
@@ -227,26 +231,38 @@ final class UpdateManager: ObservableObject {
 		apps.forEach(Storage.shared.deleteApp(for:))
 	}
 
-	/// Checks the GitLab feed right away and says why it failed, unlike the quiet background check.
+	/// Checks the feeds right away (GitLab, then the GitHub mirror when GitLab can't be read) and says why it failed, unlike the quiet background check.
 	func checkFeatherUpdateNow() async -> FeatherUpdateCheck {
-		do {
-			let repository = try await GitHubAuth.decode(ASRepository.self, from: FeatherUpdate.repositoryURL)
-			let update = _featherUpdate(in: repository)
-			featherUpdate = update
-			if let update {
-				return .available(update)
+		var failures: [String] = []
+		for (index, feedURL) in FeatherUpdate.repositoryURLs.enumerated() {
+			let isMirror = index > 0
+			let host = isMirror ? "GitHub" : "GitLab"
+			do {
+				let repository: ASRepository
+				if isMirror {
+					// public, so read it without the saved token, which may have expired
+					repository = try await GitHubAuth.decodePublic(ASRepository.self, from: feedURL)
+				} else {
+					repository = try await GitHubAuth.decode(ASRepository.self, from: feedURL)
+				}
+				let update = _featherUpdate(in: repository, feedURL: feedURL)
+				featherUpdate = update
+				if let update {
+					return .available(update)
+				}
+				let remoteApp = repository.apps.first(where: { $0.id == Bundle.main.bundleIdentifier }) ?? repository.apps.first
+				guard let remoteVersion = remoteApp?.currentVersion else {
+					return .failed("\(host) 피드에서 Feather 버전을 읽지 못했습니다.")
+				}
+				return .upToDate(local: _runningVersion, remote: remoteVersion, via: isMirror ? host : nil)
+			} catch {
+				failures.append("\(host): \(error.localizedDescription)")
 			}
-			let remoteApp = repository.apps.first(where: { $0.id == Bundle.main.bundleIdentifier }) ?? repository.apps.first
-			guard let remoteVersion = remoteApp?.currentVersion else {
-				return .failed("피드에서 Feather 버전을 읽지 못했습니다.")
-			}
-			return .upToDate(local: _runningVersion, remote: remoteVersion)
-		} catch {
-			return .failed(error.localizedDescription)
 		}
+		return .failed(failures.joined(separator: "\n"))
 	}
 
-	private func _featherUpdate(in repository: ASRepository) -> FeatherUpdate? {
+	private func _featherUpdate(in repository: ASRepository, feedURL: URL) -> FeatherUpdate? {
 		let bundleIdentifier = Bundle.main.bundleIdentifier
 		let localVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
 
@@ -256,7 +272,7 @@ final class UpdateManager: ObservableObject {
 			let downloadURL = remoteApp.currentDownloadUrl,
 			remoteVersion.compare(localVersion ?? "0", options: .numeric) == .orderedDescending,
 			let provenance = SourceAppProvenance(
-				sourceURL: FeatherUpdate.repositoryURL,
+				sourceURL: feedURL,
 				repository: repository,
 				app: remoteApp
 			)
@@ -346,8 +362,9 @@ final class UpdateManager: ObservableObject {
 		switch await checkFeatherUpdateNow() {
 		case .failed(let reason):
 			featherCheckError = reason
-		case .upToDate(let local, let remote):
-			featherCheckNote = "현재 \(local ?? "-") · 서버 \(remote ?? "-")"
+		case .upToDate(let local, let remote, let via):
+			let source = via.map { " · \($0) 피드" } ?? ""
+			featherCheckNote = "현재 \(local ?? "-") · 서버 \(remote ?? "-")\(source)"
 		case .available:
 			break
 		}

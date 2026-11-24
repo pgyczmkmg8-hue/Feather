@@ -1,6 +1,7 @@
 #!/bin/sh
-# Merge the latest seomin0610/Feather main into local main and push to origin.
-# On conflict, resolve the files, `git commit`, then `git push origin main`.
+# Merge the latest seomin0610/Feather main into local main and push to origin (GitLab) and the GitHub mirror.
+# On conflict, resolve the files, `git commit`, then `git push origin main` and `git push github main`.
+# GitHub's own daily sync may have merged upstream first: then `git fetch github && git merge github/main` before pushing.
 set -e
 cd "$(git rev-parse --show-toplevel)"
 
@@ -19,3 +20,5 @@ fi
 git merge --no-edit upstream/main
 git submodule update --init --recursive
 git push origin main
+GIT_TERMINAL_PROMPT=0 git push github main ||
+	echo "warning: could not push to github (diverged? see the note at the top of this script)" >&2

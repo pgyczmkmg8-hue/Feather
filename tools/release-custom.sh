@@ -1,13 +1,18 @@
 #!/bin/sh
 # Build Feather from main, publish it as a custom-<version> release on the
 # GitLab project (public), and list it in custom-repo.json so the app offers it as an update.
+# Then mirror main, the tag and the release to the GitHub fork (tools/mirror-github.sh) and write
+# custom-repo-github.json, the same feed with GitHub download links that the app falls back to when
+# GitLab can't be read. A failing mirror only warns: the GitLab release is the real one.
 #
 # Version: upstream FEATHER_PROJECT_VERSION plus a build counter, e.g. 2.9.4.1, 2.9.4.2.
 set -e
 cd "$(git rev-parse --show-toplevel)"
 
 REPO=Yami_Q_Ray/Feather
+GITHUB_REPO=pgyczmkmg8-hue/Feather
 FEED=custom-repo.json
+FEED_GITHUB=custom-repo-github.json
 
 if [ -n "$(git status --porcelain)" ]; then
 	echo "Commit or stash local changes first." >&2
@@ -79,7 +84,13 @@ jq \
 	' "$FEED" > "$FEED.tmp"
 mv "$FEED.tmp" "$FEED"
 
-git add "$FEED"
+# the same feed for the GitHub mirror, with GitHub download links
+sed -E 's#https://gitlab\.com/'"$REPO"'/-/releases/([^/]+)/downloads/#https://github.com/'"$GITHUB_REPO"'/releases/download/\1/#g' "$FEED" > "$FEED_GITHUB"
+
+git add "$FEED" "$FEED_GITHUB"
 git commit -q -m "chore: custom release $VERSION"
 git push -q origin main
 echo "Published $TAG: $URL"
+
+sh tools/mirror-github.sh "$TAG" packages/Feather.ipa ||
+	echo "warning: the GitHub mirror failed; after fixing the cause run: sh tools/mirror-github.sh $TAG" >&2
