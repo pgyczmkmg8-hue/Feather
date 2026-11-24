@@ -14,6 +14,13 @@
       "tintColor": "848ef9",
       "versions": [
         {
+          "version": "2.9.4.24",
+          "date": "2026-11-24T04:11:14Z",
+          "size": 29451153,
+          "downloadURL": "https://gitlab.com/Yami_Q_Ray/Feather/-/releases/custom-2.9.4.24/downloads/Feather.ipa",
+          "localizedDescription": "- feat: publish to GitLab and GitHub, fall back to GitHub feed\n- chore: clarify plistworker\n- chore: they changed api I think\n- chore: auto-close junk please\n- chore: update resolve\n- Feather(Views): add mikebuildsapp as default source"
+        },
+        {
           "version": "2.9.4.23",
           "date": "2026-11-14T12:13:27Z",
           "size": 29448543,
@@ -182,10 +189,10 @@
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Sign.png?raw=true",
         "https://github.com/khcrysalis/Feather/blob/v1.x/Images/Store.png?raw=true"
       ],
-      "version": "2.9.4.23",
-      "versionDate": "2026-11-14T12:13:27Z",
-      "size": 29448543,
-      "downloadURL": "https://gitlab.com/Yami_Q_Ray/Feather/-/releases/custom-2.9.4.23/downloads/Feather.ipa"
+      "version": "2.9.4.24",
+      "versionDate": "2026-11-24T04:11:14Z",
+      "size": 29451153,
+      "downloadURL": "https://gitlab.com/Yami_Q_Ray/Feather/-/releases/custom-2.9.4.24/downloads/Feather.ipa"
     }
   ],
   "news": []
