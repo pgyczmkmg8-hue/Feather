@@ -10,6 +10,7 @@ import NimbleViews
 import UIKit
 import Darwin
 import IDeviceSwift
+import OSLog
 
 // MARK: - View
 struct SettingsView: View {
@@ -210,6 +211,13 @@ extension SettingsView {
 			}
 			Button("GitHub 저장소", systemImage: "safari") {
 				UIApplication.open(_githubUrl)
+			}
+			Button(.localized("Export Logs"), systemImage: "doc.text") {
+				do {
+					UIActivityViewController.show(activityItems: [try Logger.exportLogs()])
+				} catch {
+					UIAlertController.showAlertWithOk(title: .localized("Export Logs"), message: error.localizedDescription)
+				}
 			}
 		} footer: {
 			Text(verbatim: "앱에 문제가 생기면 GitLab 저장소에 이슈로 알려 주세요. 이슈에는 자세한 정보를 적어 주세요.")
